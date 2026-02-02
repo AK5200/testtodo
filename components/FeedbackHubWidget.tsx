@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 export function FeedbackHubWidget() {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://yettobedecided-cjbb-6e1g8j22v-ak5200s-projects.vercel.app/widget.js';
+    script.src = 'https://yettobedecided-goyz.vercel.app/widget.js';  // ← Fixed URL
     script.setAttribute('data-org', 'taskflow');
     script.async = true;
     document.head.appendChild(script);
