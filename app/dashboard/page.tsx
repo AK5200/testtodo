@@ -100,7 +100,23 @@ export default function DashboardPage() {
             </p>
           )}
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <a
+            href="https://yettobedecided-goyz.vercel.app/taskflow"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '0.5rem 1rem',
+              background: '#10b981',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '4px',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+            }}
+          >
+            Feedback
+          </a>
           {user ? (
             <button
               onClick={handleLogout}
