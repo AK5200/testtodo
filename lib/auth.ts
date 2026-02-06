@@ -64,27 +64,3 @@ export function findUserByEmail(email: string): User | null {
 export function findUserById(id: string): User | null {
   return DEMO_USERS.find(u => u.id === id) || null;
 }
-
-// Generate FeedbackHub SSO token
-export function generateFeedbackHubToken(user: User): string {
-  const ssoSecret = process.env.FEEDBACKHUB_SSO_SECRET;
-  
-  if (!ssoSecret) {
-    throw new Error('FEEDBACKHUB_SSO_SECRET not configured');
-  }
-
-  const payload = {
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random`,
-    attributes: {
-      plan: user.plan,
-      ...(user.company && { company: user.company }),
-    },
-  };
-
-  return jwt.sign(payload, ssoSecret, {
-    expiresIn: '1h',
-  });
-}

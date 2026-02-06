@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { FeedbackHubWidget } from '@/components/FeedbackHubWidget'
 
 export const metadata: Metadata = {
   title: 'TaskFlow - Todo List App',
-  description: 'A simple todo list SaaS - FeedbackHub test customer',
+  description: 'A simple todo list SaaS application',
 }
 
 export default function RootLayout({
@@ -16,7 +15,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
-        <FeedbackHubWidget />
       </body>
     </html>
   )
