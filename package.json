@@ -1,7 +1,7 @@
 {
   "name": "taskflow-app",
   "version": "1.0.0",
-  "description": "A simple todo list SaaS - FeedbackHub test customer",
+  "description": "A simple todo list SaaS application",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",

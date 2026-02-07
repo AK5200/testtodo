@@ -101,13 +101,6 @@ export default function DashboardPage() {
           )}
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <a 
-            href="https://yettobedecided-goyz.vercel.app/taskflow/features" 
-            target="_blank" 
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            Feedback
-          </a>
           {user ? (
             <button
               onClick={handleLogout}
