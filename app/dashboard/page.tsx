@@ -2,6 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useFeedbackHub, useFeedbackHubAutoOpen } from '@/hooks/useFeedbackHub';
+
+// TypeScript declaration for FeedbackHub global
+declare global {
+  interface Window {
+    FeedbackHub?: {
+      identify: (user: { id: string; email: string; name: string; avatar?: string }) => void;
+      clearIdentity: () => void;
+      open?: () => void;
+    };
+  }
+}
 
 interface User {
   id: string;
@@ -28,6 +40,12 @@ export default function DashboardPage() {
     fetchUser();
   }, []);
 
+  // Identify user with FeedbackHub when logged in
+  useFeedbackHub(user);
+  
+  // Auto-open widget if ?feedbackhub=open is in URL
+  useFeedbackHubAutoOpen();
+
   const fetchUser = async () => {
     try {
       const res = await fetch('/api/auth/me');
@@ -47,7 +65,12 @@ export default function DashboardPage() {
   };
 
   const handleLogout = async () => {
+    // Clear FeedbackHub identity before logout
+    if (window.FeedbackHub && window.FeedbackHub.clearIdentity) {
+      window.FeedbackHub.clearIdentity();
+    }
     await fetch('/api/auth/logout', { method: 'POST' });
+    setUser(null); // Clear user state immediately
     router.push('/login');
     router.refresh();
   };

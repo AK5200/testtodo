@@ -29,7 +29,15 @@ export default function LoginPage() {
 
       // Get redirect from URL params or default to dashboard
       const urlParams = new URLSearchParams(window.location.search);
-      const redirectTo = urlParams.get('redirect') || '/dashboard';
+      let redirectTo = urlParams.get('redirect') || '/dashboard';
+      
+      // Preserve feedbackhub=open parameter if it was in the original redirect
+      // This allows the widget to auto-open after login
+      if (urlParams.get('feedbackhub') === 'open' || redirectTo.includes('feedbackhub=open')) {
+        const separator = redirectTo.includes('?') ? '&' : '?';
+        redirectTo = `${redirectTo}${separator}feedbackhub=open`;
+      }
+      
       router.push(redirectTo);
       router.refresh();
     } catch (err) {
