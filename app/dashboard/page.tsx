@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFeedbackHub, useFeedbackHubAutoOpen } from '@/hooks/useFeedbackHub';
+import { getCurrentUser } from '@/lib/auth-client';
 
 // TypeScript declaration for FeedbackHub global
 declare global {
@@ -45,6 +46,23 @@ export default function DashboardPage() {
   
   // Auto-open widget if ?feedbackhub=open is in URL
   useFeedbackHubAutoOpen();
+
+  // In TaskFlow - after user logs in or on page load if user exists
+  useEffect(() => {
+    const identifyUser = async () => {
+      const currentUser = await getCurrentUser(); // Your auth function
+      
+      if (currentUser && window.FeedbackHub?.identify) {
+        window.FeedbackHub.identify({
+          id: currentUser.id,
+          email: currentUser.email,
+          name: currentUser.name
+        });
+      }
+    };
+    
+    identifyUser();
+  }, [user]);
 
   const fetchUser = async () => {
     try {
